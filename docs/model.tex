@@ -1,0 +1,454 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\date{}
+
+% ---------------------------------------------------------------------
+% CHANGES FROM PREVIOUS VERSION
+% 1. Single closed economy: country index i dropped everywhere.
+% 2. Final good is the numeraire (P_t = 1). Developer utility and mu are
+%    therefore in units of the final good without a P divisor.
+% 3. Consistency fixes found in the market-clearing review:
+%    a. Household profit income was missing the R&D wage bill paid by
+%       innovators; without it Walras' law fails. Now included.
+%    b. Final-good market clearing added: Y = C + fuel. This closes the
+%       system and is implied by the other conditions (Walras).
+%    c. Interest rate r was free; now pinned by the household Euler
+%       equation (firms discount with the household's rate).
+%    d. The quality state is the (sigma-1)-moment aggregate Q^z, not the
+%       mean q-bar: profits and the price index depend on q^(sigma-1).
+%       Random targeting makes Q^z a sufficient statistic with an exact
+%       law of motion.
+%    e. Patent value made exact: V(q) = q^(sigma-1) v, with the innovator's
+%       advantage decaying as the sector aggregate grows. Innovation and
+%       displacement timing aligned (research at t, productive at t+1).
+%    f. Dispatch: interior case (all plants run) stated as an assumption.
+% 4. New Section 8: market clearing and equilibrium definition.
+% ---------------------------------------------------------------------
+
+\begin{document}
+
+\section{Environment}
+
+Time is discrete, $t=0,1,2,\dots$. The economy is closed. Population
+$L_t$ is exogenous and supplied inelastically. The final good is the
+numeraire, $P_t=1$. The final good is produced using labour and
+electricity. Electricity is produced by installed power plants of
+different types $k\in\mathcal K$ (for example solar, wind, gas, coal),
+partitioned into a clean set $\mathcal C$ and a fossil set $\mathcal F$.
+Each period a mass of developers operates; each developer chooses which
+type of plant to build, or not to build, according to a random-utility
+model over project values. Building a clean plant requires a continuum of
+differentiated clean capital varieties (panels, turbines, inverters);
+building a fossil plant requires a separate continuum of dirty capital
+varieties (boilers, turbines, gas trains), and operating it requires
+fuel. Each variety firm produces one unique variety. Innovation raises
+the quality of a variety, lowering its price, lowering the capital cost
+of the corresponding plant type, and raising demand for the variety.
+
+Labour is used in final-good production, variety production and
+research:
+\[
+L_t = L^Y_t + L^M_t + S_t,
+\qquad S_t=S^c_t+S^d_t,
+\]
+where $S^z_t$ is the mass of scientists working on sector
+$z\in\{c,d\}$ varieties.
+
+\section{Households}
+
+The representative household owns all variety firms, plants, development
+projects and research firms, and chooses consumption $\{C_t\}$ to
+maximise
+\[
+\max_{\{C_t\}}\sum_{t=0}^{\infty}\frac{1}{(1+\rho)^t}\,u(C_t)
+\qquad\text{s.t.}\qquad
+C_t + T_t = w_tL_t + \Pi_t ,
+\]
+where $T_t$ is a lump-sum tax and $\Pi_t$ is the aggregate net cash flow
+of all firms owned by the household:
+\begin{align*}
+\Pi_t={}&
+\underbrace{\sum_{z\in\{c,d\}}\int_0^{M^z}\pi^z_t(\nu)\,d\nu}
+_{\text{variety-firm profits}}
++\underbrace{\sum_{k\in\mathcal C}A_{kt}K_{kt}P^F_{kt}
++\sum_{k\in\mathcal F}A_{kt}K_{kt}\big(P^E_t-c^k_t\big)}
+_{\text{plant operating profits}}\\
+&-\underbrace{\sum_{k\in\mathcal C\cup\mathcal F}F^k_t\,s_{kt}D_t}
+_{\text{investment outlays}}
+-\underbrace{\big[(w_t-\xi_t)S^c_t+w_tS^d_t\big]}
+_{\text{R\&D outlays net of subsidy}} .
+\end{align*}
+There is no traded asset, so the Euler equation defines the discount rate
+that firms use:
+\[
+1+r_{t+1}=(1+\rho)\,\frac{u'(C_t)}{u'(C_{t+1})} .
+\]
+
+\section{Final Good}
+
+Competitive producers choose labour $L^Y_t$ and electricity $E_t$ to
+maximise profit:
+\[
+\max_{L^Y_t,\,E_t}\quad Y_t - w_tL^Y_t - P^E_tE_t
+\qquad\text{s.t.}\qquad
+Y_t = \left(L^Y_t\right)^{1-\beta}E_t^{\,\beta}
+\]
+with first-order conditions $w_tL^Y_t=(1-\beta)Y_t$ and
+$P^E_tE_t=\beta Y_t$.
+
+\section{Power Plant Development}\label{sec:dev}
+
+\subsection{Plants and electricity supply}
+
+A unit of installed capacity of type $k$ produces $A_{kt}$ units of
+electricity per period, where $A_{kt}$ is the exogenous capacity factor
+(irradiance, wind, availability). Capacity depreciates at rate
+$\delta_k$. Clean plants have no variable cost. Fossil plants burn fuel
+$k$, supplied by a domestic resource sector at constant marginal cost
+$p^k_t$ units of the final good per unit of fuel, converted at thermal
+efficiency $h_k$ and taxed at the carbon tax $\tau^E_t$ scaled by
+emissions intensity $e_k$:
+\[
+c^k_t=0 \quad (k\in\mathcal C),
+\qquad
+c^k_t=\frac{(1+\tau^E_te_k)\,p^k_t}{h_k}
+\quad (k\in\mathcal F).
+\]
+Electricity is homogeneous. Fossil plants sell at the competitive market
+price $P^E_t$ and run whenever $P^E_t\ge c^k_t$. Clean plants of type
+$k$ receive a feed-in tariff $P^F_{kt}$ per unit of output, with
+$P^F_{kt}=P^E_t$ when no support is in place, and always run. We restrict
+attention to the interior case $P^E_t\ge c^k_t$ for all
+$k\in\mathcal F$, so all installed capacity runs:
+\[
+E_t=\sum_{k\in\mathcal K}A_{kt}K_{kt}.
+\]
+
+\subsection{Capital cost of a plant}
+
+Building one unit of capacity of type $k$ requires $\iota_k$ units of a
+CES bundle of capital varieties from the corresponding sector, clean
+($z=c$) for $k\in\mathcal C$ and dirty ($z=d$) for $k\in\mathcal F$:
+\[
+X^z_t=\left[\int_0^{M^z}
+x^z_t(\nu)^{(\sigma-1)/\sigma}\,d\nu\right]^{\sigma/(\sigma-1)},
+\qquad z\in\{c,d\},
+\]
+with price index $P^z_t$ defined in Section~\ref{sec:varieties}.
+Capital cost per unit of capacity is
+\[
+F^k_t=\iota_k\,P^c_t\quad(k\in\mathcal C),
+\qquad
+F^k_t=\iota_k\,P^d_t\quad(k\in\mathcal F).
+\]
+
+\subsection{Value of a project}
+
+Let $Q^k_t$ be the present value of operating profits from one unit of
+type-$k$ capacity that is in place at $t$:
+\[
+Q^k_t=A_{kt}\big(P^F_{kt}-c^k_t\big)
++\frac{1-\delta_k}{1+r_{t+1}}\,Q^k_{t+1}
+\quad(k\in\mathcal C),
+\qquad
+Q^k_t=A_{kt}\big(P^E_t-c^k_t\big)
++\frac{1-\delta_k}{1+r_{t+1}}\,Q^k_{t+1}
+\quad(k\in\mathcal F).
+\]
+A plant built at $t$ becomes operational at $t+1$. The value of
+developing one unit of type-$k$ capacity at $t$ is
+\[
+W^k_t=-F^k_t+\frac{1}{1+r_{t+1}}\,Q^k_{t+1},
+\qquad k\in\mathcal C\cup\mathcal F,
+\]
+and the value of not building (the outside option, $k=0$) is $W^0_t=0$.
+
+\subsection{Developer random utility}
+
+Each period a mass $D_t$ of developers $\omega$ operates, each holding
+one unit-capacity project opportunity. Developer $\omega$'s payoff from
+choosing type $k\in\mathcal K_0\equiv\{0\}\cup\mathcal C\cup\mathcal F$
+is
+\[
+U_{kt}(\omega)=W^k_t+\mu\,\epsilon_{k}(\omega),
+\]
+where $\epsilon_{k}(\omega)$ is an idiosyncratic project-specific
+component (site quality, land, permitting, grid connection, financing)
+and $\mu>0$ scales its dispersion in units of the final good. The
+developer chooses $k$ to maximise $U_{kt}(\omega)$.
+
+\subsection{Nested logit shares}
+
+The shocks $\epsilon_{k}(\omega)$ follow a generalised extreme value
+distribution with nests $g\in\{\{0\},\mathcal C,\mathcal F\}$ and nesting
+parameters $\lambda_g\in(0,1]$. Writing $v^k_t\equiv W^k_t/\mu$, the
+share of developers choosing type $k$ in nest $g$ is
+\[
+s_{kt}=s_{k|g,t}\cdot s_{gt},
+\qquad
+s_{k|g,t}=\frac{\exp(v^k_t/\lambda_g)}
+{\sum_{m\in g}\exp(v^m_t/\lambda_g)},
+\qquad
+s_{gt}=\frac{\exp(I_{gt})}{\sum_{h}\exp(I_{ht})},
+\]
+with nest inclusive values
+\[
+I_{gt}=\lambda_g\ln\sum_{m\in g}\exp\big(v^m_t/\lambda_g\big).
+\]
+When $\lambda_g=1$ for all $g$ this is the multinomial logit
+\[
+s_{kt}=\frac{\exp(v^k_t)}{1+\sum_{m\in\mathcal C\cup\mathcal F}
+\exp(v^m_t)},
+\qquad
+\frac{\partial\ln s_{kt}}{\partial v^m_t}=\mathbf 1\{k=m\}-s_{mt}.
+\]
+Aggregate new capacity of type $k$ is $s_{kt}D_t$, and the clean and
+fossil build shares are $s^{\mathcal C}_t=\sum_{k\in\mathcal C}s_{kt}$
+and $s^{\mathcal F}_t=\sum_{k\in\mathcal F}s_{kt}$.
+
+\subsection{Capacity accumulation}
+
+\[
+K_{k,t+1}=(1-\delta_k)K_{kt}+s_{kt}D_t,
+\qquad k\in\mathcal C\cup\mathcal F .
+\]
+Capacity is a state variable: developers' current choices determine
+future electricity supply, and the forward-looking project value
+$Q^k_{t+1}$ depends on future capacity through $P^E$.
+
+\subsection{Demand for capital varieties}
+
+Expenditure on each variety sector is the corresponding capex flow:
+\[
+R^c_t\equiv P^c_tX^c_t=\sum_{k\in\mathcal C}\iota_k\,P^c_t\,s_{kt}D_t,
+\qquad
+R^d_t\equiv P^d_tX^d_t=\sum_{k\in\mathcal F}\iota_k\,P^d_t\,s_{kt}D_t.
+\]
+Developers minimise the cost of each bundle, so demand for variety $\nu$
+of sector $z$ is
+\[
+x^z_t(\nu)=\left(\frac{p^z_t(\nu)}{P^z_t}\right)^{-\sigma}
+\frac{R^z_t}{P^z_t} .
+\]
+This is the market-size channel of directed innovation: lower $P^c_t$
+lowers $F^k_t$ for all $k\in\mathcal C$, raises $W^k_t$, raises the clean
+build share $s^{\mathcal C}_t$, and raises the revenue $R^c_t$ of clean
+variety firms relative to $R^d_t$.
+
+\subsection{Policy channels}
+
+A carbon tax raises $c^k_t$ for $k\in\mathcal F$, lowers $Q^k$ and $W^k$
+for fossil plants, and shifts developers toward clean types and the
+outside option at a rate governed by $\mu$. A feed-in tariff
+$P^F_{kt}>P^E_t$ raises $Q^k$ and $W^k$ for clean plants directly. Both
+raise $R^c_t$ relative to $R^d_t$ and therefore redirect innovation
+toward clean varieties through market size; the R\&D subsidy $\xi_t$
+(Section~\ref{sec:innovation}) acts on the free-entry condition of
+scientists instead. Within the nested model, policies that change
+relative project values inside the clean nest (a solar-specific feed-in
+tariff) reallocate developers within the nest at rate
+$1/\lambda_{\mathcal C}$ and across nests at rate $1$.
+
+\paragraph{Remark (free entry of developers).}
+An alternative to an exogenous $D_t$ is free entry: a developer pays a
+development cost $\kappa^D_t$ to draw a project, and entry continues
+until the expected value of a draw, $\mu\ln\sum_g\exp(I_{gt})$, equals
+$\kappa^D_t$.
+
+\paragraph{Remark (estimation).}
+With the outside option as reference, Berry's inversion gives
+\[
+\ln s_{kt}-\ln s_{0t}
+=\frac{W^k_t}{\mu}
+\quad\Big(\text{nested: }+\,(1-\lambda_g)\ln s_{k|g,t}\Big),
+\]
+so $\mu$ and $\lambda_g$ are identified from plant-level data on
+commissioned projects (shares of new capacity by type) together with
+observed capital costs and expected operating margins, with unobserved
+type-time project value absorbed by fixed effects.
+
+\section{Capital Variety Firms}\label{sec:varieties}
+
+\subsection{Firm structure}
+
+In each sector $z\in\{c,d\}$ there is a fixed mass $M^z$ of active
+firms, each producing one unique variety $\nu$ under patent with current
+quality $q^z_t(\nu)$. Quality reflects manufacturing efficiency: higher
+quality means the firm can produce more units per worker.
+
+\subsection{Production and pricing}
+
+Firm $\nu$ in sector $z$ produces using $\psi/q^z_t(\nu)$ units of labour
+per unit of output, so marginal cost is
+\[
+mc^z_t(\nu) = \frac{\psi\,w_t}{q^z_t(\nu)}
+\]
+and the firm sets a constant markup over marginal cost:
+\[
+p^z_t(\nu) = \frac{\sigma}{\sigma-1}\cdot\frac{\psi\,w_t}{q^z_t(\nu)} .
+\]
+
+\subsection{Quality aggregate and price index}
+
+Define the sector quality aggregate
+\[
+\mathcal Q^z_t\equiv\int_0^{M^z} q^z_t(\nu)^{\sigma-1}\,d\nu .
+\]
+The price index is
+\[
+P^z_t = \left[\int_0^{M^z}
+p^z_t(\nu)^{1-\sigma}\,d\nu\right]^{1/(1-\sigma)}
+=\frac{\sigma}{\sigma-1}\cdot\psi\,w_t\cdot
+\big(\mathcal Q^z_t\big)^{1/(1-\sigma)} .
+\]
+Higher $\mathcal Q^c_t$ lowers clean capital costs $F^k_t$,
+$k\in\mathcal C$, and raises the clean build share
+$s^{\mathcal C}_t$; symmetrically for $\mathcal Q^d_t$ and fossil
+plants.
+
+\subsection{Firm profits and labour demand}
+
+Flow profit of a firm with quality $q$ in sector $z$:
+\[
+\pi^z_t(q) = \frac{1}{\sigma}
+\left(\frac{p^z_t(q)}{P^z_t}\right)^{1-\sigma}R^z_t
+=\frac{q^{\sigma-1}}{\mathcal Q^z_t}\cdot\frac{R^z_t}{\sigma} .
+\]
+Sector profits sum to $R^z_t/\sigma$ and the sector wage bill is
+$(\sigma-1)R^z_t/\sigma$, so labour used in variety production is
+\[
+L^M_t=\sum_{z\in\{c,d\}}\int_0^{M^z}\frac{\psi\,x^z_t(\nu)}{q^z_t(\nu)}\,d\nu
+=\frac{\sigma-1}{\sigma}\cdot\frac{R^c_t+R^d_t}{w_t} .
+\]
+
+\section{Innovation}\label{sec:innovation}
+
+\subsection{Quality ladder and timing}
+
+A scientist working in period $t$ targets a randomly drawn firm $\nu$ in
+sector $z$ and succeeds with probability $\eta$. A successful innovator
+raises the target's quality to $(1+\gamma)q^z_t(\nu)$, displaces the
+incumbent at the end of period $t$, and produces with the patent from
+$t+1$ onward. With $S^z_t$ scientists in sector $z$, each incumbent is
+displaced with probability $\eta S^z_t/M^z$ (assumed below $1$). By
+random targeting, the expected contribution of a success to the quality
+aggregate is proportional to the average of $q^{\sigma-1}$, so
+\[
+\mathcal Q^z_{t+1}=\mathcal Q^z_t\left[1+\frac{\eta S^z_t}{M^z}
+\Big((1+\gamma)^{\sigma-1}-1\Big)\right] .
+\]
+
+\subsection{Value of a patent}
+
+The value at $t$ of a patent with quality $q$ in sector $z$ is
+\[
+V^z_t(q)=\pi^z_t(q)+\frac{1-\eta S^z_t/M^z}{1+r_{t+1}}\,V^z_{t+1}(q) .
+\]
+Since $\pi^z_t(q)$ is linear in $q^{\sigma-1}$, so is $V^z_t(q)$:
+$V^z_t(q)=q^{\sigma-1}v^z_t$ with
+\[
+v^z_t=\frac{R^z_t}{\sigma\,\mathcal Q^z_t}
++\frac{1-\eta S^z_t/M^z}{1+r_{t+1}}\,v^z_{t+1} .
+\]
+A patent's relative profit decays as the sector aggregate
+$\mathcal Q^z$ grows around it.
+
+\subsection{Scientist optimisation}
+
+Workers are freely mobile between production and research, so
+scientists earn the wage $w_t$ and are hired by competitive research
+firms. The government pays a per-scientist clean R\&D subsidy $\xi_t$
+to research firms for each scientist targeting clean varieties. A
+scientist who succeeds at $t$ holds, from $t+1$, a patent of quality
+$(1+\gamma)q^z_t(\nu)$ for a randomly drawn $\nu$, with expected
+$q^{\sigma-1}$ equal to $\mathcal Q^z_t/M^z$. Free entry into each
+sector implies
+\[
+\eta\,(1+\gamma)^{\sigma-1}\,\frac{\mathcal Q^c_t}{M^c}\cdot
+\frac{v^c_{t+1}}{1+r_{t+1}}+\xi_t\le w_t,
+\qquad
+\eta\,(1+\gamma)^{\sigma-1}\,\frac{\mathcal Q^d_t}{M^d}\cdot
+\frac{v^d_{t+1}}{1+r_{t+1}}\le w_t,
+\]
+each holding with equality whenever $S^z_t>0$. When both hold with
+equality, scientists allocate across sectors until the subsidised
+expected value of a clean innovation equals that of a dirty one.
+
+\subsection{Innovation incentive}
+
+Along a path where all firms in a sector have the same quality, the
+expected flow profit from a successful innovation in sector $z$ is
+\[
+\Pi^z_t=\eta\,(1+\gamma)^{\sigma-1}\cdot\frac{R^z_t}{\sigma M^z},
+\qquad
+\frac{\Pi^c_t}{\Pi^d_t}=\frac{R^c_t/M^c}{R^d_t/M^d},
+\]
+the ratio of capex revenue per variety across the two sectors. Carbon
+taxes and feed-in tariffs raise $R^c_t/R^d_t$ by shifting developers
+toward clean plants and operate on innovation through this market-size
+ratio, with strength governed by $\mu$; the R\&D subsidy $\xi_t$
+operates directly on the free-entry condition.
+
+\section{Government}
+
+The government levies a carbon tax on fuel and a lump-sum tax, and pays
+the feed-in tariff and the clean R\&D subsidy. Carbon-tax revenue is
+\[
+R^E_t=\sum_{k\in\mathcal F}\tau^E_te_k\,p^k_t\,\frac{A_{kt}K_{kt}}{h_k},
+\]
+and feed-in-tariff outlays are
+\[
+G^F_t=\sum_{k\in\mathcal C}\big(P^F_{kt}-P^E_t\big)A_{kt}K_{kt}.
+\]
+The budget balances each period:
+\[
+R^E_t+T_t=G^F_t+\xi_t\,S^c_t ,
+\]
+so that $T_t<0$ is a lump-sum rebate when revenue exceeds outlays.
+
+\section{Market Clearing and Equilibrium}\label{sec:eq}
+
+\subsection{Market clearing}
+
+\begin{itemize}
+\item Electricity: $P^E_tE_t=\beta Y_t$ with $E_t=\sum_kA_{kt}K_{kt}$,
+so $P^E_t=\beta\,(L^Y_t)^{1-\beta}E_t^{\beta-1}$.
+\item Labour: $L_t=L^Y_t+L^M_t+S^c_t+S^d_t$ with
+$w_tL^Y_t=(1-\beta)Y_t$ and $L^M_t=(\sigma-1)(R^c_t+R^d_t)/(\sigma w_t)$.
+\item Varieties: each firm's output equals demand $x^z_t(\nu)$; summing
+$p^z_t(\nu)x^z_t(\nu)$ over $\nu$ gives $R^z_t$ by construction of the
+CES bundle.
+\item Fuel: fuel use is $A_{kt}K_{kt}/h_k$ for $k\in\mathcal F$,
+produced from $p^k_t$ units of the final good per unit.
+\item Final good: $Y_t=C_t+\sum_{k\in\mathcal F}p^k_t\,A_{kt}K_{kt}/h_k$.
+\end{itemize}
+Substituting the household budget, the definition of $\Pi_t$, the
+final-good first-order conditions and the government budget gives
+$C_t=Y_t-\sum_{k\in\mathcal F}p^k_tA_{kt}K_{kt}/h_k$, so the final-good
+market clears by Walras' law. Capital varieties are produced from
+labour, capex is a payment from developers to variety firms, and the
+carbon tax, feed-in tariff, R\&D subsidy and lump-sum tax are transfers;
+the only use of the final good other than consumption is fuel.
+
+\subsection{Equilibrium definition}
+
+Given initial capacities $\{K_{k0}\}$ and quality aggregates
+$\{\mathcal Q^z_0\}$, exogenous paths $\{L_t,D_t,A_{kt},p^k_t\}$ and
+policies $\{\tau^E_t,P^F_{kt},\xi_t\}$, an equilibrium is a sequence of
+prices $\{w_t,P^E_t,P^c_t,P^d_t,r_{t+1}\}$, quantities
+$\{C_t,Y_t,E_t,L^Y_t,L^M_t,S^c_t,S^d_t,R^c_t,R^d_t\}$, project values
+$\{Q^k_t,W^k_t,s_{kt}\}$, patent values $\{v^z_t\}$, taxes $\{T_t\}$ and
+states $\{K_{k,t+1},\mathcal Q^z_{t+1}\}$ such that: households satisfy
+the Euler equation and budget; final-good producers satisfy their
+first-order conditions; developers choose by the nested logit given
+$\{W^k_t\}$; $Q^k_t$, $W^k_t$ and $v^z_t$ satisfy their recursions;
+variety firms price at the markup and the price indices hold; scientists
+satisfy free entry in each sector; the government budget balances; the
+state variables follow their laws of motion; and the electricity, labour
+and final-good markets clear.
+
+
+\end{document}

@@ -1,0 +1,201 @@
+{
+  "calibration_targets": {
+    "PE0": 0.06,
+    "Pc0": 3.0,
+    "Pd0": 1.0,
+    "decline_c": 0.07,
+    "decline_d": 0.01,
+    "window": 10
+  },
+  "parameters": {
+    "T": 200,
+    "rho": 0.05,
+    "theta": 1.0,
+    "L": 19272.579107001857,
+    "beta": 0.012,
+    "A": [
+      1.5768,
+      2.8908,
+      3.942,
+      5.4312
+    ],
+    "delta": [
+      0.04,
+      0.04,
+      0.03333333333333333,
+      0.025
+    ],
+    "iota": [
+      1.0,
+      0.75,
+      1.0,
+      2.5
+    ],
+    "h": [
+      1.0,
+      1.0,
+      0.5,
+      0.37
+    ],
+    "p_fuel": [
+      0.0,
+      0.0,
+      0.015,
+      0.008
+    ],
+    "em": [
+      0.0,
+      0.0,
+      0.2,
+      0.34
+    ],
+    "D": 34.0,
+    "mu": 0.4,
+    "lam_C": 0.8,
+    "lam_F": 0.8,
+    "sigma": 5.0,
+    "psi": 1.0,
+    "M": [
+      5.965506079744642,
+      74.78394732746975
+    ],
+    "eta": 0.5,
+    "gamma": 0.3,
+    "K0": [
+      20.0,
+      60.0,
+      450.0,
+      330.0
+    ],
+    "Qz0": [
+      0.026559797200231154,
+      2.1513435732187247
+    ]
+  },
+  "plant_types": [
+    "solar",
+    "wind",
+    "gas",
+    "coal"
+  ],
+  "checks": {
+    "baseline": {
+      "max_abs_residual": 1.4430123762565472e-13,
+      "walras_gap": 1.5543122344752192e-15,
+      "interior_dispatch": true,
+      "min_fossil_margin": 0.028252282733013973,
+      "first_violation": null,
+      "max_displacement": 0.3113143041425798,
+      "determinacy_index": 1.9489050000000006
+    },
+    "carbon_tax": {
+      "max_abs_residual": 7.310227076451348e-12,
+      "walras_gap": 1.1102230246251565e-15,
+      "interior_dispatch": true,
+      "min_fossil_margin": 0.012769770442151558,
+      "first_violation": null,
+      "max_displacement": 0.5498255198941454,
+      "determinacy_index": 1.9489050000000006
+    },
+    "feed_in_premium": {
+      "max_abs_residual": 2.8727020762175925e-15,
+      "walras_gap": 1.1102230246251565e-15,
+      "interior_dispatch": true,
+      "min_fossil_margin": 0.029564766608864923,
+      "first_violation": null,
+      "max_displacement": 0.4913378514648516,
+      "determinacy_index": 1.9489050000000006
+    },
+    "rd_subsidy": {
+      "max_abs_residual": 4.631225958284801e-13,
+      "walras_gap": 1.1102230246251565e-15,
+      "interior_dispatch": true,
+      "min_fossil_margin": 0.029175339035262475,
+      "first_violation": null,
+      "max_displacement": 0.7523035892507418,
+      "determinacy_index": 1.9489050000000006
+    }
+  },
+  "scenarios": {
+    "baseline": {
+      "cumulative_emissions_50y_Gt": 95.21344804055234,
+      "emissions_cut_vs_baseline_50y_pct": 0.0,
+      "clean_generation_share": {
+        "0": 0.0543554006968641,
+        "10": 0.08119455815412303,
+        "20": 0.21029659290382102,
+        "30": 0.3356607656494132,
+        "50": 0.5078799465973751
+      },
+      "first_year_clean_majority_of_new_capacity": 10,
+      "solar_capex_per_kW": {
+        "0": 3000.0000000000005,
+        "10": 1451.9469215378786,
+        "20": 552.5241826508218,
+        "30": 315.5677651644701
+      },
+      "consumption_equivalent_change_pct": 0.0,
+      "pv_net_fiscal_cost_bn": 0.0
+    },
+    "carbon_tax": {
+      "cumulative_emissions_50y_Gt": 67.41921785496815,
+      "emissions_cut_vs_baseline_50y_pct": 29.191496324916567,
+      "clean_generation_share": {
+        "0": 0.0543554006968641,
+        "10": 0.20646121689650693,
+        "20": 0.3749088415562155,
+        "30": 0.5062937081962147,
+        "50": 0.6902262432862241
+      },
+      "first_year_clean_majority_of_new_capacity": 2,
+      "solar_capex_per_kW": {
+        "0": 2999.9729266817308,
+        "10": 718.561281314279,
+        "20": 344.8290127567676,
+        "30": 225.8504856130881
+      },
+      "consumption_equivalent_change_pct": 0.03439867691923393,
+      "pv_net_fiscal_cost_bn": -800.3399645020999
+    },
+    "feed_in_premium": {
+      "cumulative_emissions_50y_Gt": 79.78241463662071,
+      "emissions_cut_vs_baseline_50y_pct": 16.206779316887456,
+      "clean_generation_share": {
+        "0": 0.0543554006968641,
+        "10": 0.18061044648589364,
+        "20": 0.3241313603448966,
+        "30": 0.4361936245430007,
+        "50": 0.585727487097334
+      },
+      "first_year_clean_majority_of_new_capacity": 3,
+      "solar_capex_per_kW": {
+        "0": 3000.0051966504698,
+        "10": 775.652838019835,
+        "20": 375.2689296452317,
+        "30": 245.47630285450032
+      },
+      "consumption_equivalent_change_pct": 0.031075176008865668,
+      "pv_net_fiscal_cost_bn": 100.47387593485584
+    },
+    "rd_subsidy": {
+      "cumulative_emissions_50y_Gt": 82.0558617522349,
+      "emissions_cut_vs_baseline_50y_pct": 13.819041909619202,
+      "clean_generation_share": {
+        "0": 0.0543554006968641,
+        "10": 0.1478541497947123,
+        "20": 0.3046157512596166,
+        "30": 0.42536014710383924,
+        "50": 0.5829964331044828
+      },
+      "first_year_clean_majority_of_new_capacity": 5,
+      "solar_capex_per_kW": {
+        "0": 2999.996838219114,
+        "10": 578.8562747804452,
+        "20": 252.73565959172385,
+        "30": 187.28561839545998
+      },
+      "consumption_equivalent_change_pct": 0.03532437644004904,
+      "pv_net_fiscal_cost_bn": 29.70932136489576
+    }
+  }
+}
